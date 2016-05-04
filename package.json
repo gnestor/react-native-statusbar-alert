@@ -1,0 +1,28 @@
+{
+  "name": "react-native-statusbar-alert",
+  "version": "0.0.1",
+  "description": "A status bar alert (e.g. in-call, recording, navigating) for React Native",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gnestor/react-native-statusbar-alert"
+  },
+  "keywords": [
+    "react native",
+    "status bar",
+    "alert",
+    "banner"
+  ],
+  "author": "Grant Nestor (grantnestor@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gnestor/react-native-statusbar-alert/issues"
+  },
+  "homepage": "https://github.com/gnestor/react-native-statusbar-alert",
+  "peerDependencies": {
+    "react-native": ">=0.18.0"
+  }
+}

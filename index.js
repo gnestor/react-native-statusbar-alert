@@ -11,7 +11,7 @@ import React, {
   View
 } from 'react-native'
 
-const STATUS_BAR_HEIGHT = 20
+let STATUS_BAR_HEIGHT = 20
 const PULSE_DURATION = 1000
 const SLIDE_DURATION = 300
 const ACTIVE_OPACITY = 0.6
@@ -73,6 +73,7 @@ class StatusBarAlert extends Component {
         }
       }
     }, PULSE_DURATION)
+    if (this.props.statusbarHeight) STATUS_BAR_HEIGHT = this.props.statusbarHeight
   }
 
   componentWillUnmount() {
@@ -124,6 +125,7 @@ class StatusBarAlert extends Component {
         })
       }
     }
+    if (this.props.statusbarHeight) STATUS_BAR_HEIGHT = this.props.statusbarHeight
   }
 
   render() {

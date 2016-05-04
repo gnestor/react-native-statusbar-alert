@@ -2,7 +2,11 @@
 
 A status bar alert (e.g. in-call, recording, navigating) for React Native
 
-## Demos
+## Install
+
+`npm install react-native-statusbar-alert --save`
+
+## Usage
 
 ### Basic
 
@@ -48,24 +52,6 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
 
 ![press](react-native-statusbar-alert-press.mov.gif)
 
-## Install
-
-* Install: `npm install react-native-statusbar-alert --save`
-
-## Usage
-
-```js
-<StatusBarAlert
-  visible={true}
-  message="Silent Switch ON"
-  onPress={() => this.navigator.push({id: 'SilentAlert'})}
-  pulse="text"
-  backgroundColor="#3CC29E"
-  highlightColor="#50E4C2"
-  color="white"
-/>
-```
-
 ## Props
 
 | Name            | description                     | Required    | Type                      |
@@ -100,7 +86,7 @@ Navigator automatically offsets its navigation bar's top position by the height 
 
 ## Alert stack example
 
-Much like a route stack, you can keep a alert stack as an array of alert objects in your component's state. The StatusBarAlert will render the first alert in the stack, so that as new alerts are pushed into the stack, it will render the most recent alert. If an alert is popped from the stack, StatusBarAlert will render any remaining alerts and when the stack is empty, StatusBarAlert will hide itself.
+Much like a route stack, you can keep an alert stack as an array of alert objects in your component's state. The StatusBarAlert will render the first alert in the stack, so that as new alerts are pushed into the stack, it will render the most recent alert. If an alert is popped from the stack, StatusBarAlert will render any remaining alerts and when the stack is empty, StatusBarAlert will hide itself.
 
 ```js
 render() {

@@ -15,7 +15,6 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
   visible={true}
   message="Silent Switch ON"
   backgroundColor="#3CC29E"
-  highlightColor="#50E4C2"
   color="white"
 />
 ```
@@ -29,7 +28,6 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
   visible={true}
   message="Silent Switch ON"
   backgroundColor="#3CC29E"
-  highlightColor="#50E4C2"
   color="white"
   pulse="background"
 />
@@ -44,7 +42,6 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
   visible={true}
   message="Silent Switch ON"
   backgroundColor="#3CC29E"
-  highlightColor="#50E4C2"
   color="white"
   onPress={() => this.navigator.push({id: 'SilentAlert'})}
 />
@@ -54,18 +51,19 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
 
 ## Props
 
-| Name            | description                     | Required    | Type                      |
-| :-------------  | :------------------------------ | :---------- | :------------------------ |
-| visible         | `true` to show, `false` to hide | true        | bool                      |
-| message         | message to display in alert     | true        | string
-| onPress         | callback on press event         | false        | func                    |
-| pulse           | animate the text or background  | false       | enum('text','background') |
-| backgroundColor | background color                | false       | [color](https://facebook.github.io/react-native/docs/colors.html) |
-| highlightColor  | color on press and pulse        | false       | [color](https://facebook.github.io/react-native/docs/colors.html) |
-| color           | text color                      | false       | [color](https://facebook.github.io/react-native/docs/colors.html) |
-| statusbarHeight | custom status bar height<sup>1</sup>        | false       | int                   |
+| Name            | Description                     | Required    | Type                      | Default
+| :-------------  | :------------------------------ | :---------- | :------------------------ | :------
+| visible         | `true` to show, `false` to hide | true        | bool                      | `false`
+| message         | message to display in alert     | true        | string                    | `''`
+| onPress         | callback on press event         | false       | func                      | `null`
+| pulse           | animate the text or background  | false       | enum('text','background') | `false`
+| backgroundColor | background color                | false       | [color][1]                | `'#3DD84C'`
+| highlightColor  | color on press and pulse        | false       | [color][1]                | `darken(this.props.backgroundColor, 0.9)`
+| color           | text color                      | false       | [color][1]                | `'white'`
+| statusbarHeight | [custom status bar height][2]   | false       | int                       | 20
 
-* <sup>1</sup> Use with [react-native-status-bar-size](https://github.com/brentvatne/react-native-status-bar-size) to get the actual status bar height
+[1]: https://facebook.github.io/react-native/docs/colors.html  "Colors"
+[2]: https://github.com/brentvatne/react-native-status-bar-size "react-native-status-bar-size"
 
 ## Usage with Navigator on iOS
 
@@ -86,7 +84,7 @@ Navigator automatically offsets its navigation bar's top position by the height 
 
 ## Alert stack example
 
-Much like a route stack, you can keep an alert stack as an array of alert objects in your component's state. The StatusBarAlert will render the first alert in the stack, so that as new alerts are pushed into the stack, it will render the most recent alert. If an alert is popped from the stack, StatusBarAlert will render any remaining alerts and when the stack is empty, StatusBarAlert will hide itself.
+Much like a route stack, you can keep an alert stack as an array of alert objects in your component's state. The StatusBarAlert will render the first alert in the stack, so that as new alerts are pushed into the stack, it will render the most recent alert. If an alert is popped from the stack, StatusBarAlert will render any remaining alerts and when the stack is empty, StatusBarAlert will hide itself. Additionally, the object spread operator (`{...this.state.alerts[0]}`) allows you to declare the default props for alerts in `render()` (e.g. `backgroundColor="#3CC29E"`) and override those props in the alert object (e.g. `backgroundColor="#FF6245"`).
 
 ```js
 render() {
@@ -94,7 +92,6 @@ render() {
     <View style={styles.container}>
       <StatusBarAlert
         backgroundColor="#3CC29E"
-        highlightColor="#50E4C2"
         color="white"
         visible={this.state.alerts.length > 0}
         {...this.state.alerts[0]}
@@ -116,7 +113,8 @@ showSilentAlert() {
   this.setState({
     alerts: [{
       message: 'Silent Switch ON',
-      onPress: () => this.navigator.push({id: 'SilentAlert'})
+      onPress: () => this.navigator.push({id: 'SilentAlert'}),
+      backgroundColor="#FF6245"
     }, ...this.state.alerts]
   })
 }

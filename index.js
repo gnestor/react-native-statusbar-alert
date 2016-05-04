@@ -15,7 +15,7 @@ let STATUS_BAR_HEIGHT = 20
 const PULSE_DURATION = 1000
 const SLIDE_DURATION = 300
 const ACTIVE_OPACITY = 0.6
-const DARKEN_OPACITY = 0.9
+const SATURATION = 0.9
 
 class StatusBarAlert extends Component {
 
@@ -133,13 +133,13 @@ class StatusBarAlert extends Component {
       <Animated.View style={[styles.view, {
         height: this.state.height,
         opacity: this.state.opacity,
-        backgroundColor: this.props.highlightColor || darken(this.props.backgroundColor, DARKEN_OPACITY)
+        backgroundColor: this.props.highlightColor || saturate(this.props.backgroundColor, SATURATION)
       }]}>
         <TouchableOpacity
           style={[styles.touchableOpacity, {
             backgroundColor: this.props.pulse === 'background' ? this.state.pulse.interpolate({
               inputRange: [0, 1],
-              outputRange: [this.props.backgroundColor, this.props.highlightColor || darken(this.props.backgroundColor, DARKEN_OPACITY)]
+              outputRange: [this.props.backgroundColor, this.props.highlightColor || saturate(this.props.backgroundColor, SATURATION)]
             }) : this.props.backgroundColor
           }]}
           onPress={this.props.onPress || null}
@@ -163,7 +163,7 @@ class StatusBarAlert extends Component {
 const styles = {
   view: {
     height: STATUS_BAR_HEIGHT * 2,
-    backgroundColor: darken('#3DD84C', DARKEN_OPACITY)
+    backgroundColor: saturate('#3DD84C', SATURATION)
   },
   touchableOpacity: {
     flex: 1,
@@ -199,7 +199,7 @@ StatusBarAlert.defaultProps = {
   statusbarHeight: STATUS_BAR_HEIGHT
 }
 
-function darken(color, percent) {
+function saturate(color, percent) {
   let R = parseInt(color.substring(1, 3), 16)
   let G = parseInt(color.substring(3, 5), 16)
   let B = parseInt(color.substring(5, 7), 16)

@@ -142,7 +142,7 @@ class StatusBarAlert extends Component {
               outputRange: [this.props.backgroundColor, this.props.highlightColor || saturate(this.props.backgroundColor, SATURATION)]
             }) : this.props.backgroundColor
           }]}
-          onPress={this.props.onPress || null}
+          onPress={this.props.onPress}
           activeOpacity={ACTIVE_OPACITY}
         >
           <Animated.Text
@@ -187,6 +187,7 @@ StatusBarAlert.propTypes = {
   backgroundColor: PropTypes.string,
   highlightColor: PropTypes.string,
   color: PropTypes.string,
+  onPress: PropTypes.func
 }
 
 StatusBarAlert.defaultProps = {
@@ -196,7 +197,8 @@ StatusBarAlert.defaultProps = {
   backgroundColor: styles.touchableOpacity.backgroundColor,
   highlightColor: null,
   color: styles.text.color,
-  statusbarHeight: STATUS_BAR_HEIGHT
+  statusbarHeight: STATUS_BAR_HEIGHT,
+  onPress: null
 }
 
 function saturate(color, percent) {

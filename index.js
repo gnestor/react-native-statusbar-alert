@@ -1,8 +1,7 @@
-import React, {
+import React, {Component, PropTypes} from 'react'
+import {
   Animated,
-  Component,
   InteractionManager,
-  PropTypes,
   StatusBar,
   StyleSheet,
   Text,
@@ -10,12 +9,6 @@ import React, {
   TouchableOpacity,
   View
 } from 'react-native'
-
-let STATUS_BAR_HEIGHT = 20
-const PULSE_DURATION = 1000
-const SLIDE_DURATION = 300
-const ACTIVE_OPACITY = 0.6
-const SATURATION = 0.9
 
 class StatusBarAlert extends Component {
 
@@ -159,6 +152,12 @@ class StatusBarAlert extends Component {
   }
 
 }
+
+let STATUS_BAR_HEIGHT = 20
+const PULSE_DURATION = 1000
+const SLIDE_DURATION = 300
+const ACTIVE_OPACITY = 0.6
+const SATURATION = 0.9
 
 const styles = {
   view: {

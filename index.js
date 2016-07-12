@@ -143,6 +143,7 @@ class StatusBarAlert extends Component {
               color: this.props.color || styles.text.color,
               opacity: this.props.pulse === 'text' ? this.state.pulse : 1
             }]}
+            allowFontScaling={false}
           >
           {this.props.message}
           </Animated.Text>

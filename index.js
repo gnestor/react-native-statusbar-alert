@@ -185,6 +185,7 @@ StatusBarAlert.propTypes = {
   backgroundColor: PropTypes.string,
   highlightColor: PropTypes.string,
   color: PropTypes.string,
+  statusbarHeight: PropTypes.number,
   onPress: PropTypes.func
 }
 

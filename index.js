@@ -126,16 +126,14 @@ class StatusBarAlert extends Component {
       <Animated.View style={[styles.view, {
         height: this.state.height,
         opacity: this.state.opacity,
-        backgroundColor: this.props.highlightColor || saturate(this.props.backgroundColor, SATURATION)
+        backgroundColor: this.props.pulse === 'background' ? this.state.pulse.interpolate({
+          inputRange: [0, 1],
+          outputRange: [this.props.backgroundColor, this.props.highlightColor || saturate(this.props.backgroundColor, SATURATION)]
+        }) : this.props.backgroundColor
       }]}>
         <TouchableOpacity
-          style={[styles.touchableOpacity, {
-            backgroundColor: this.props.pulse === 'background' ? this.state.pulse.interpolate({
-              inputRange: [0, 1],
-              outputRange: [this.props.backgroundColor, this.props.highlightColor || saturate(this.props.backgroundColor, SATURATION)]
-            }) : this.props.backgroundColor
-          }]}
-          onPress={this.props.onPress}
+          style={styles.touchableOpacity}
+          onPress={this.props.onPress || null}
           activeOpacity={ACTIVE_OPACITY}
         >
           <Animated.Text
@@ -158,6 +156,7 @@ let STATUS_BAR_HEIGHT = 20
 const PULSE_DURATION = 1000
 const SLIDE_DURATION = 300
 const ACTIVE_OPACITY = 0.6
+const DEFAULT_BACKGROUND_COLOR = '#3DD84C'
 const SATURATION = 0.9
 
 const styles = {
@@ -167,8 +166,7 @@ const styles = {
   },
   touchableOpacity: {
     flex: 1,
-    justifyContent: 'flex-end',
-    backgroundColor: '#3DD84C'
+    justifyContent: 'flex-end'
   },
   text: {
     height: STATUS_BAR_HEIGHT,
@@ -194,7 +192,7 @@ StatusBarAlert.defaultProps = {
   visible: false,
   message: '',
   pulse: false,
-  backgroundColor: styles.touchableOpacity.backgroundColor,
+  backgroundColor: DEFAULT_BACKGROUND_COLOR,
   highlightColor: null,
   color: styles.text.color,
   statusbarHeight: STATUS_BAR_HEIGHT,

@@ -139,7 +139,9 @@ class StatusBarAlert extends Component {
           <Animated.Text
             style={[styles.text, {
               color: this.props.color || styles.text.color,
-              opacity: this.props.pulse === 'text' ? this.state.pulse : 1
+              fontSize: this.props.fontSize || styles.text.fontSize,
+              opacity: this.props.pulse === 'text' ? this.state.pulse : 1,
+              height: this.props.statusbarHeight || styles.text.height
             }]}
             allowFontScaling={false}
           >
@@ -182,6 +184,8 @@ StatusBarAlert.propTypes = {
   visible: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
   pulse: PropTypes.oneOf(['text', 'background', null, false]),
+  statusbarHeight: PropTypes.number,
+  fontSize: PropTypes.number,
   backgroundColor: PropTypes.string,
   highlightColor: PropTypes.string,
   color: PropTypes.string,
@@ -196,6 +200,7 @@ StatusBarAlert.defaultProps = {
   backgroundColor: DEFAULT_BACKGROUND_COLOR,
   highlightColor: null,
   color: styles.text.color,
+  fontSize: styles.text.fontSize,
   statusbarHeight: STATUS_BAR_HEIGHT,
   onPress: null
 }

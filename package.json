@@ -1,6 +1,6 @@
 {
   "name": "react-native-statusbar-alert",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A status bar alert (e.g. in-call, recording, navigating) for React Native",
   "main": "index.js",
   "scripts": {

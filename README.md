@@ -54,7 +54,7 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
 | Name            | Description                     | Required    | Type                      | Default
 | :-------------  | :------------------------------ | :---------- | :------------------------ | :------
 | visible         | `true` to show, `false` to hide | true        | bool                      | `false`
-| message         | message to display in alert     | true        | string                    | `''`
+| message         | message to display in alert     | true        | string or [Text][3]       | `''`
 | onPress         | callback on press event         | false       | func                      | `null`
 | pulse           | animate the text or background  | false       | enum('text','background') | `false`
 | backgroundColor | background color                | false       | [color][1]                | `'#3DD84C'`
@@ -64,6 +64,11 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
 
 [1]: https://facebook.github.io/react-native/docs/colors.html  "Colors"
 [2]: https://github.com/brentvatne/react-native-status-bar-size "react-native-status-bar-size"
+[3]: http://facebook.github.io/react-native/docs/text.html "Text"
+
+## Styling the message
+
+Messages styles like font size, family or weight can be controlled by setting the message as a [Text][3] element instead of a string.
 
 ## Usage with Navigator on iOS
 
@@ -80,6 +85,30 @@ Navigator automatically offsets its navigation bar's top position by the height 
     />
   }
 />
+```
+
+## Usage without Navigator
+
+When using StatusBarAlert without a Navigator make sure to correct the main view's top position by adding `top: -40` to it.
+
+```js
+render() {
+  return (
+    <View style={styles.container}>
+      <StatusBarAlert
+        backgroundColor="#3CC29E"
+        color="white"
+        visible={!!this.state.alert}
+        message={this.state.alert}
+      />
+      <View style={{position: 'absolute', zIndex: 0, top: -40, left: 0, right: 0, bottom: 0}}>
+        <View style={{flex: 1, paddingTop: 20}}>
+          ...
+        </View>
+      </View>
+    </View>
+  )
+}
 ```
 
 ## Alert stack example

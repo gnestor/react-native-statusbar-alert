@@ -181,7 +181,10 @@ const styles = {
 
 StatusBarAlert.propTypes = {
   visible: PropTypes.bool.isRequired,
-  message: PropTypes.string.isRequired,
+  message: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element
+  ]).isRequired,
   pulse: PropTypes.oneOf(['text', 'background', null, false]),
   backgroundColor: PropTypes.string,
   highlightColor: PropTypes.string,

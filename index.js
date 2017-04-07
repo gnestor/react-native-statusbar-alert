@@ -161,6 +161,7 @@ const SATURATION = 0.9
 
 const styles = {
   view: {
+    zIndex: 1000,
     height: STATUS_BAR_HEIGHT * 2,
     backgroundColor: saturate('#3DD84C', SATURATION)
   },

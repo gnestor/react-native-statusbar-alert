@@ -105,7 +105,7 @@ class StatusBarAlert extends Component {
             Animated.timing(
               this.state.height,
               {
-                toValue: Platform.OS === 'ios' ? props.statusbarHeight : 0,
+                toValue: Platform.OS === 'ios' ? this.props.statusbarHeight : 0,
                 duration: SLIDE_DURATION
               }
             ),

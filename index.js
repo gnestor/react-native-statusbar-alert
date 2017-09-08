@@ -170,7 +170,7 @@ const styles = {
   },
   text: {
     height: STATUS_BAR_HEIGHT,
-    fontSize: 13,
+    fontSize: 25,
     fontWeight: '400',
     lineHeight: 15,
     textAlign: 'center',

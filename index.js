@@ -124,6 +124,18 @@ class StatusBarAlert extends Component {
   }
 
   render() {
+    const { containerStyles } = this.props;
+    const content = this.props.children ? this.props.children : (
+       <Animated.Text
+            style={[styles.text, {
+              color: this.props.color || styles.text.color,
+              opacity: this.props.pulse === 'text' ? this.state.pulse : 1
+            }]}
+            allowFontScaling={false}
+          >
+          {this.props.message}
+        </Animated.Text>
+    )
     return (
       <Animated.View style={[styles.view, {
         height: this.state.height,
@@ -134,19 +146,11 @@ class StatusBarAlert extends Component {
         }) : this.props.backgroundColor
       }]}>
         <TouchableOpacity
-          style={styles.touchableOpacity}
+          style={[styles.touchableOpacity, containerStyles]}
           onPress={this.props.onPress || null}
           activeOpacity={ACTIVE_OPACITY}
         >
-          <Animated.Text
-            style={[styles.text, {
-              color: this.props.color || styles.text.color,
-              opacity: this.props.pulse === 'text' ? this.state.pulse : 1
-            }]}
-            allowFontScaling={false}
-          >
-          {this.props.message}
-          </Animated.Text>
+        {content}
         </TouchableOpacity>
       </Animated.View>
     )

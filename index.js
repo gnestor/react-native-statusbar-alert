@@ -1,7 +1,9 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {
   Animated,
   InteractionManager,
+  Platform,
   StatusBar,
   StyleSheet,
   Text,
@@ -15,7 +17,7 @@ class StatusBarAlert extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      height: new Animated.Value(props.statusbarHeight),
+      height: new Animated.Value(Platform.OS === 'ios' ? props.statusbarHeight : 0),
       opacity: new Animated.Value(0),
       pulse: new Animated.Value(0)
     }
@@ -30,7 +32,7 @@ class StatusBarAlert extends Component {
           Animated.timing(
             this.state.height,
             {
-              toValue: this.props.statusbarHeight * 2,
+              toValue: Platform.OS === 'ios' ? STATUS_BAR_HEIGHT + 24 : STATUS_BAR_HEIGHT,
               duration: SLIDE_DURATION
             }
           ),
@@ -82,7 +84,7 @@ class StatusBarAlert extends Component {
             Animated.timing(
               this.state.height,
               {
-                toValue: nextProps.statusbarHeight * 2,
+                toValue: Platform.OS === 'ios' ? nextProps.statusbarHeight + STATUS_BAR_HEIGHT : nextProps.statusbarHeight,
                 duration: SLIDE_DURATION
               }
             ),
@@ -103,7 +105,7 @@ class StatusBarAlert extends Component {
             Animated.timing(
               this.state.height,
               {
-                toValue: this.props.statusbarHeight,
+                toValue: Platform.OS === 'ios' ? this.props.statusbarHeight : 0,
                 duration: SLIDE_DURATION
               }
             ),
@@ -152,7 +154,7 @@ class StatusBarAlert extends Component {
 
 }
 
-let STATUS_BAR_HEIGHT = 20
+let STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight
 const PULSE_DURATION = 1000
 const SLIDE_DURATION = 300
 const ACTIVE_OPACITY = 0.6
@@ -161,19 +163,22 @@ const SATURATION = 0.9
 
 const styles = {
   view: {
-    height: STATUS_BAR_HEIGHT * 2,
+    height: Platform.OS === 'ios' ? STATUS_BAR_HEIGHT * 2 : STATUS_BAR_HEIGHT,
     backgroundColor: saturate('#3DD84C', SATURATION)
   },
   touchableOpacity: {
     flex: 1,
-    justifyContent: 'flex-end'
+    display: 'flex',
+    height: STATUS_BAR_HEIGHT,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
   text: {
     height: STATUS_BAR_HEIGHT,
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '400',
-    lineHeight: 15,
-    textAlign: 'center',
+    lineHeight: 20,
+    marginBottom: Platform.OS === 'ios' ? 4 : 0,
     color: 'white'
   }
 }

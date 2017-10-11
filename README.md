@@ -4,7 +4,7 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
 
 ## Install
 
-`npm install react-native-statusbar-alert --save`
+`npm install react-native-statusbar-alert --save` or `yarn add react-native-statusbar-alert`
 
 ## Usage
 
@@ -49,6 +49,25 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
 
 ![press](screenshots/react-native-statusbar-alert-press.mov.gif)
 
+### Children
+
+```js
+<StatusBarAlert
+  visible={true}
+  height={68}
+  style={{
+    padding: 5
+  }}
+>
+  <Image
+    style={{ width: 66, height: 58 }}
+    source={{
+      uri: 'https://facebook.github.io/react-native/img/header_logo.png'
+    }}
+  />
+</StatusBarAlert>
+```
+
 ## Props
 
 | Name            | Description                     | Required    | Type                      | Default
@@ -60,10 +79,13 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
 | backgroundColor | background color                | false       | [color][1]                | `'#3DD84C'`
 | highlightColor  | color on press and pulse        | false       | [color][1]                | `darken(this.props.backgroundColor, 0.9)`
 | color           | text color                      | false       | [color][1]                | `'white'`
+| height          | height of children container    | false       | int                       | 20
 | statusbarHeight | [custom status bar height][2]   | false       | int                       | 20
+| style           | styles for children container   | false       | [style object][3]         | `{}`
 
-[1]: https://facebook.github.io/react-native/docs/colors.html  "Colors"
+[1]: https://facebook.github.io/react-native/docs/colors.html  "React Native Colors"
 [2]: https://github.com/brentvatne/react-native-status-bar-size "react-native-status-bar-size"
+[3]: https://facebook.github.io/react-native/docs/style.html  "React Native Style"
 
 ## Usage with Navigator on iOS
 

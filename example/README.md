@@ -1,3 +1,18 @@
+# react-native-statusbar-alert example app
+
+To run this example app:
+
+```bash
+# Clone the react-native-statusbar-alert repo
+git clone https://github.com/gnestor/react-native-statusbar-alert.git
+cd example
+# Install dependencies (you may use yarn or npm)
+npm install
+# Start the react-native packager and follow instructions
+npm start
+```
+
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).

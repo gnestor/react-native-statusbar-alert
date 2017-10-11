@@ -146,3 +146,7 @@ hideSilentAlert() {
   })
 }
 ```
+
+## Example app
+
+See the [ReactNativeStatusBarAlertExample directory](https://github.com/gnestor/react-native-statusbar-alert/tree/master/ReactNativeStatusBarAlertExample) for an example React Native app using react-native-statusbar-alert.

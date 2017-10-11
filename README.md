@@ -19,7 +19,7 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
 />
 ```
 
-![basic](react-native-statusbar-alert.mov.gif)
+![basic](screenshots/react-native-statusbar-alert.mov.gif)
 
 ### Pulse
 
@@ -33,7 +33,7 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
 />
 ```
 
-![pulse](react-native-statusbar-alert-pulse.mov.gif)
+![pulse](screenshots/react-native-statusbar-alert-pulse.mov.gif)
 
 ### Press
 
@@ -47,7 +47,7 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
 />
 ```
 
-![press](react-native-statusbar-alert-press.mov.gif)
+![press](screenshots/react-native-statusbar-alert-press.mov.gif)
 
 ## Props
 

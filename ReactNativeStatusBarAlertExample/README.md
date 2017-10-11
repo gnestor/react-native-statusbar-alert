@@ -7,11 +7,12 @@ To run this example app:
 git clone https://github.com/gnestor/react-native-statusbar-alert.git
 cd example
 # Install dependencies (you may use yarn or npm)
-npm install
+yarn install
 # Start the react-native packager and follow instructions
-npm start
+yarn start
 ```
 
+To develop react-native-statusbar-alert, you will need to edit `ReactNativeStatusBarAlertExample/node_modules/react-native-statusbar-alert/index.js` because react-native's packager and watchman don't support symlinks. I spent several hours trying to figure out a simple workaround for this and I couldn't find one, so the compromise is that you edit the module in `node_modules` and then copy your changes over to the source when you're ready to commit changes.
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 

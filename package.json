@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/gnestor/react-native-statusbar-alert",
   "peerDependencies": {
-    "react": "^15",
+    "react": "^16.0.0",
     "react-native": ">=0.26",
     "prop-types": "^15"
   }

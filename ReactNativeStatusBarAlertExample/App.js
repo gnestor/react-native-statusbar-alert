@@ -4,6 +4,7 @@ import {
   View,
   Text,
   Button,
+  Image,
   StatusBar,
 } from 'react-native';
 import StatusBarAlert from 'react-native-statusbar-alert';

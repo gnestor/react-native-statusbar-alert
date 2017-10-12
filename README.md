@@ -104,6 +104,30 @@ Navigator automatically offsets its navigation bar's top position by the height 
 />
 ```
 
+## Usage without Navigator
+
+When using StatusBarAlert without a Navigator be aware that StatusBarAlert is positioned on top and offsets the content by the height of the status bar. Therefore correct the content top position by adding `marginTop: -20` to it, and position the status bar alert on top by adding `zIndex: 1` (see example below). Moreover if you have a backgroundColor on the main content you should also compensate the height of the StatusBarAlert as shown below otherwise you will see the containers background color when the alert is animating.
+
+```js
+render() {
+  return (
+    <View style={styles.container}>
+      <StatusBarAlert
+        backgroundColor="#3CC29E"
+        color="white"
+        visible={!!this.state.alert}
+        message={this.state.alert}
+        height={60}
+        style={{zIndex: 1}}
+      />
+      <View style={{flex: 1, marginTop: -60, paddingTop: 40, backgroundColor: '#3CC29E'}}>
+        ...
+      </View>
+    </View>
+  )
+}
+```
+
 ## Alert stack example
 
 Much like a route stack, you can keep an alert stack as an array of alert objects in your component's state. The StatusBarAlert will render the first alert in the stack, so that as new alerts are pushed into the stack, it will render the most recent alert. If an alert is popped from the stack, StatusBarAlert will render any remaining alerts and when the stack is empty, StatusBarAlert will hide itself. Additionally, the object spread operator (`{...this.state.alerts[0]}`) allows you to declare the default props for alerts in `render()` (e.g. `backgroundColor="#3CC29E"`) and override those props in the alert object (e.g. `backgroundColor="#FF6245"`).

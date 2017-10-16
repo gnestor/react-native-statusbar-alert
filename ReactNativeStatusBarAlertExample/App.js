@@ -1,109 +1,147 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button, Image, StatusBar } from 'react-native';
+import {
+	Button,
+	Image,
+	StatusBar,
+	StyleSheet,
+	Text,
+	View
+} from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import PropTypes from 'prop-types';
 import StatusBarAlert from 'react-native-statusbar-alert';
 
-export default class App extends React.Component {
-	state = {
-		visible: false,
-		barStyle: 'dark-content',
-		content: null
+export class HomeScreen extends React.Component {
+	static navigationOptions = {
+		title: 'Home View'
 	};
-
+	static contextTypes = {
+		toggleAlert: PropTypes.func
+	};
 	render() {
-		StatusBar.setBarStyle(this.state.barStyle);
+		const { navigate } = this.props.navigation;
 		return (
-			<View style={styles.container}>
-				<StatusBar barStyle={this.state.barStyle} />
-				{this.state.content}
-				<View style={styles.body}>
-					<Text>Welcome to the react-native-statusbar-alert example app</Text>
-					<Button
-						onPress={() => {
-							this.setState({
-								visible: !this.state.visible,
-								barStyle:
-									this.state.barStyle === 'light-content'
-										? 'dark-content'
-										: 'light-content',
-								content: this.imageAlert()
-							});
-						}}
-						title="Toggle image alert"
-						color="#3DD84C"
-						accessibilityLabel="Toggle image alert"
-					/>
-					<Button
-						onPress={() => {
-							this.setState({
-								visible: !this.state.visible,
-								barStyle:
-									this.state.barStyle === 'light-content'
-										? 'dark-content'
-										: 'light-content',
-								content: this.textAlert()
-							});
-						}}
-						title="Toggle text alert"
-						color="#3DD84C"
-						accessibilityLabel="Toggle text alert"
-					/>
-				</View>
+			<View style={styles.content}>
+				<Text style={styles.text}>react-native-statusbar-alert + react-navigation example app</Text>
+				<Button
+					onPress={() => {
+						navigate('Child', {
+							time: new Date()
+						});
+					}}
+					title="Push a view"
+				/>
+				<Button
+					onPress={() => {
+						this.context.toggleAlert();
+					}}
+					title="Toggle text alert"
+					accessibilityLabel="Toggle text alert"
+				/>
 			</View>
 		);
 	}
+}
 
-	textAlert = () => (
-		<StatusBarAlert
-			visible={!this.state.visible}
-			message="Alert!"
-			pulse="background"
-			onPress={() => {
-				this.setState({
-					visible: !this.state.visible,
-					barStyle:
-						this.state.barStyle === 'light-content'
-							? 'dark-content'
-							: 'light-content'
-				});
-			}}
-		/>
-	);
+export class ChildScreen extends React.Component {
+	static navigationOptions = ({ navigation }) => ({
+		title: 'Child View'
+	});
+	static contextTypes = {
+		toggleAlert: PropTypes.func
+	};
+	render() {
+		const { params } = this.props.navigation.state;
+		return (
+			<View style={styles.content}>
+				<Text style={styles.text}>This time is {params.time.toLocaleTimeString()}</Text>
+				<Button
+					onPress={() => {
+						const image = (
+							<Image
+								style={{ 
+									width: 21,
+									height: 18,
+									marginBottom: 3
+								}}
+								source={{
+									uri: 'https://facebook.github.io/react-native/img/header_logo.png'
+								}}
+							/>
+						);
+						this.context.toggleAlert(image);
+					}}
+					title="Toggle image alert"
+					accessibilityLabel="Toggle image alert"
+				/>
+			</View>
+		);
+	}
+}
 
-	imageAlert = () => (
-		<StatusBarAlert
-			visible={!this.state.visible}
-			pulse="background"
-			height={68}
-			style={{
-				padding: 5
-			}}
-		>
-			<Image
-				style={{ width: 66, height: 58 }}
-				source={{
-					uri: 'https://facebook.github.io/react-native/img/header_logo.png'
-				}}
-				onPress={() => {
-					this.setState({
-						visible: !this.state.visible,
-						barStyle:
-							this.state.barStyle === 'light-content'
-								? 'dark-content'
-								: 'light-content'
-					});
-				}}
-			/>
-		</StatusBarAlert>
-	);
+const MyStack = StackNavigator({
+	Home: {
+		screen: HomeScreen
+	},
+	Child: {
+		screen: ChildScreen
+	}
+});
+
+export default class App extends React.Component {
+	state = {
+		alert: false
+	};
+	getChildContext() {
+		return {
+			toggleAlert: this.toggleAlert
+		};
+	}
+	static childContextTypes = {
+		toggleAlert: PropTypes.func
+	};
+	render() {
+		return (
+			<View style={styles.container}>
+				<StatusBar
+					barStyle={this.state.alert ? 'light-content' : 'dark-content'}
+				/>
+				<StatusBarAlert
+					visible={this.state.alert}
+					message="Alert!"
+					backgroundColor="#3CC29E"
+					color="white"
+					style={styles.alert}
+					onPress={this.toggleAlert}
+				>
+					{this.state.customAlert}
+				</StatusBarAlert>
+				<MyStack />
+			</View>
+		);
+	}
+	toggleAlert = (customAlert) => {
+		this.setState({
+			alert: !this.state.alert,
+			customAlert
+		});
+	};
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
 	},
-	body: {
+	alert: {
+		
+	},
+	content: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center'
+		padding: 10
+	},
+	text: {
+		padding: 10,
+		textAlign: 'center'
 	}
 });

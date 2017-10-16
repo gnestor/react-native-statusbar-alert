@@ -16,9 +16,7 @@ class StatusBarAlert extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			height: new Animated.Value(
-				Platform.OS === 'ios' ? (props.statusbarHeight || STATUS_BAR_HEIGHT) : 0
-			),
+			height: new Animated.Value(0),
 			opacity: new Animated.Value(0),
 			pulse: new Animated.Value(0)
 		};
@@ -33,8 +31,9 @@ class StatusBarAlert extends Component {
 					Animated.timing(this.state.height, {
 						toValue:
 							Platform.OS === 'ios'
-							? this.props.height + (this.props.statusbarHeight || STATUS_BAR_HEIGHT)
-							: this.props.height,
+								? this.props.height +
+									(this.props.statusbarHeight || STATUS_BAR_HEIGHT)
+								: this.props.height,
 						duration: SLIDE_DURATION
 					}),
 					Animated.timing(this.state.opacity, {
@@ -75,7 +74,8 @@ class StatusBarAlert extends Component {
 						Animated.timing(this.state.height, {
 							toValue:
 								Platform.OS === 'ios'
-									? nextProps.height + (this.props.statusbarHeight || STATUS_BAR_HEIGHT)
+									? nextProps.height +
+										(this.props.statusbarHeight || STATUS_BAR_HEIGHT)
 									: nextProps.height,
 							duration: SLIDE_DURATION
 						}),
@@ -91,7 +91,7 @@ class StatusBarAlert extends Component {
 				requestAnimationFrame(() => {
 					Animated.parallel([
 						Animated.timing(this.state.height, {
-							toValue: Platform.OS === 'ios' ? (this.props.statusbarHeight || STATUS_BAR_HEIGHT) : 0,
+							toValue: 0,
 							duration: SLIDE_DURATION
 						}),
 						Animated.timing(this.state.opacity, {
@@ -153,7 +153,7 @@ class StatusBarAlert extends Component {
 	}
 }
 
-let STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
 const PULSE_DURATION = 1000;
 const SLIDE_DURATION = 300;
 const ACTIVE_OPACITY = 0.6;
@@ -184,14 +184,15 @@ const styles = {
 
 StatusBarAlert.propTypes = {
 	visible: PropTypes.bool.isRequired,
-	message: PropTypes.string.isRequired,
+	message: PropTypes.string,
 	pulse: PropTypes.oneOf(['text', 'background', null, false]),
 	backgroundColor: PropTypes.string,
 	highlightColor: PropTypes.string,
 	color: PropTypes.string,
 	height: PropTypes.number,
 	statusbarHeight: PropTypes.number,
-	onPress: PropTypes.func
+	onPress: PropTypes.func,
+	style: PropTypes.any
 };
 
 StatusBarAlert.defaultProps = {

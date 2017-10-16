@@ -87,22 +87,40 @@ A status bar alert (e.g. in-call, recording, navigating) for React Native
 [2]: https://github.com/brentvatne/react-native-status-bar-size "react-native-status-bar-size"
 [3]: https://facebook.github.io/react-native/docs/style.html  "React Native Style"
 
-## Usage with Navigator on iOS
+## Usage with react-navigation
 
-Navigator automatically offsets its navigation bar's top position by the height of the status bar ([source](https://github.com/facebook/react-native/blob/ca2fb70fa9affc6ad9acae6bf116c084cdaa0da3/Libraries/CustomComponents/Navigator/NavigatorNavigationBarStylesIOS.js#L42)). StatusBarAlert is positioned adjacent to the Navigator component and offsets the entire Navigator component by the height of the status bar. To correct the navigation bar's top position, simply add `top: -20` to the navigation bar's style.
+Create a navigation element using reat-navigation:
 
 ```js
-<Navigator
-  initialRoute={initialRoute}
-  renderScene={this.renderScene}
-  navigationBar={
-    <Navigator.NavigationBar
-      routeMapper={routeMapper}
-      style={{top: -20}}
-    />
-  }
-/>
+import { StackNavigator } from 'react-navigation';
 ```
+
+```js
+const NavigationStack = StackNavigator({
+	Home: {
+		screen: HomeScreen
+	},
+	Child: {
+		screen: ChildScreen
+	}
+});
+```
+
+Render `StatusBarAlert` adjacent with `StatusBar` and `NavigationStack`:
+
+```js
+<View style={styles.container}>
+  <StatusBar />
+  <StatusBarAlert
+    visible={this.state.alert}
+    message="Alert!"
+    onPress={this.toggleAlert}
+  />
+  <NavigationStack />
+</View>
+```
+
+See the [ReactNativeStatusBarAlert](/ReactNativeStatusBarAlert) directory for a complete example.
 
 ## Alert stack example
 
@@ -149,4 +167,4 @@ hideSilentAlert() {
 
 ## Example app
 
-See the [ReactNativeStatusBarAlertExample directory](https://github.com/gnestor/react-native-statusbar-alert/tree/master/ReactNativeStatusBarAlertExample) for an example React Native app using react-native-statusbar-alert.
+See the [ReactNativeStatusBarAlertExample](https://github.com/gnestor/react-native-statusbar-alert/tree/master/ReactNativeStatusBarAlertExample) directory for an example React Native app using react-native-statusbar-alert.

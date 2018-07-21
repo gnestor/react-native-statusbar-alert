@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import {
 	Animated,
 	InteractionManager,
@@ -10,7 +10,7 @@ import {
 	TouchableHighlight,
 	TouchableOpacity,
 	View
-} from 'react-native';
+} from "react-native";
 
 class StatusBarAlert extends Component {
 	constructor(props) {
@@ -30,7 +30,7 @@ class StatusBarAlert extends Component {
 				Animated.parallel([
 					Animated.timing(this.state.height, {
 						toValue:
-							Platform.OS === 'ios'
+							Platform.OS === "ios"
 								? this.props.height +
 									(this.props.statusbarHeight || STATUS_BAR_HEIGHT)
 								: this.props.height,
@@ -42,27 +42,31 @@ class StatusBarAlert extends Component {
 					})
 				]).start();
 			});
-		}
-		// Pulse animation
-		this.timer = setInterval(() => {
-			if (this.props.pulse) {
-				if (Math.round(this.state.pulse._value) === 1) {
-					Animated.timing(this.state.pulse, {
-						toValue: 0,
-						duration: PULSE_DURATION
-					}).start();
-				} else {
-					Animated.timing(this.state.pulse, {
-						toValue: 1,
-						duration: PULSE_DURATION
-					}).start();
+			// Pulse animation
+			this.timer = setInterval(() => {
+				if (this.props.pulse) {
+					if (Math.round(this.state.pulse._value) === 1) {
+						Animated.timing(this.state.pulse, {
+							toValue: 0,
+							duration: PULSE_DURATION
+						}).start();
+					} else {
+						Animated.timing(this.state.pulse, {
+							toValue: 1,
+							duration: PULSE_DURATION
+						}).start();
+					}
 				}
+			}, PULSE_DURATION);
+		} else {
+			if (this.timer) {
+				clearInterval(this.timer);
 			}
-		}, PULSE_DURATION);
+		}
 	}
 
 	componentWillUnmount() {
-		clearInterval(this.timer);
+		this.handleClearInterval();
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -73,7 +77,7 @@ class StatusBarAlert extends Component {
 					Animated.parallel([
 						Animated.timing(this.state.height, {
 							toValue:
-								Platform.OS === 'ios'
+								Platform.OS === "ios"
 									? nextProps.height +
 										(this.props.statusbarHeight || STATUS_BAR_HEIGHT)
 									: nextProps.height,
@@ -100,7 +104,15 @@ class StatusBarAlert extends Component {
 						})
 					]).start();
 				});
+
+				this.handleClearInterval();
 			}
+		}
+	}
+
+	handleClearInterval() {
+		if (this.timer) {
+			clearInterval(this.timer);
 		}
 	}
 
@@ -111,7 +123,7 @@ class StatusBarAlert extends Component {
 					styles.text,
 					{
 						color: this.props.color || styles.text.color,
-						opacity: this.props.pulse === 'text' ? this.state.pulse : 1
+						opacity: this.props.pulse === "text" ? this.state.pulse : 1
 					}
 				]}
 				allowFontScaling={false}
@@ -128,7 +140,7 @@ class StatusBarAlert extends Component {
 						height: this.state.height,
 						opacity: this.state.opacity,
 						backgroundColor:
-							this.props.pulse === 'background'
+							this.props.pulse === "background"
 								? this.state.pulse.interpolate({
 										inputRange: [0, 1],
 										outputRange: [
@@ -153,39 +165,39 @@ class StatusBarAlert extends Component {
 	}
 }
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+const STATUS_BAR_HEIGHT = Platform.OS === "ios" ? 20 : StatusBar.currentHeight;
 const PULSE_DURATION = 1000;
 const SLIDE_DURATION = 300;
 const ACTIVE_OPACITY = 0.6;
-const DEFAULT_BACKGROUND_COLOR = '#3DD84C';
+const DEFAULT_BACKGROUND_COLOR = "#3DD84C";
 const SATURATION = 0.9;
 
 const styles = {
 	view: {
-		height: Platform.OS === 'ios' ? STATUS_BAR_HEIGHT * 2 : STATUS_BAR_HEIGHT,
-		backgroundColor: saturate('#3DD84C', SATURATION)
+		height: Platform.OS === "ios" ? STATUS_BAR_HEIGHT * 2 : STATUS_BAR_HEIGHT,
+		backgroundColor: saturate("#3DD84C", SATURATION)
 	},
 	touchableOpacity: {
 		flex: 1,
-		display: 'flex',
+		display: "flex",
 		height: STATUS_BAR_HEIGHT,
-		justifyContent: 'flex-end',
-		alignItems: 'center'
+		justifyContent: "flex-end",
+		alignItems: "center"
 	},
 	text: {
 		height: STATUS_BAR_HEIGHT,
 		fontSize: 14,
-		fontWeight: '400',
+		fontWeight: "400",
 		lineHeight: 20,
-		marginBottom: Platform.OS === 'ios' ? 4 : 0,
-		color: 'white'
+		marginBottom: Platform.OS === "ios" ? 4 : 0,
+		color: "white"
 	}
 };
 
 StatusBarAlert.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	message: PropTypes.string,
-	pulse: PropTypes.oneOf(['text', 'background', null, false]),
+	pulse: PropTypes.oneOf(["text", "background", null, false]),
 	backgroundColor: PropTypes.string,
 	highlightColor: PropTypes.string,
 	color: PropTypes.string,
@@ -197,7 +209,7 @@ StatusBarAlert.propTypes = {
 
 StatusBarAlert.defaultProps = {
 	visible: false,
-	message: '',
+	message: "",
 	pulse: false,
 	backgroundColor: DEFAULT_BACKGROUND_COLOR,
 	highlightColor: null,
@@ -217,9 +229,9 @@ function saturate(color, percent) {
 	R = R < 255 ? R : 255;
 	G = G < 255 ? G : 255;
 	B = B < 255 ? B : 255;
-	let r = R.toString(16).length == 1 ? '0' + R.toString(16) : R.toString(16);
-	let g = G.toString(16).length == 1 ? '0' + G.toString(16) : G.toString(16);
-	let b = B.toString(16).length == 1 ? '0' + B.toString(16) : B.toString(16);
+	let r = R.toString(16).length == 1 ? "0" + R.toString(16) : R.toString(16);
+	let g = G.toString(16).length == 1 ? "0" + G.toString(16) : G.toString(16);
+	let b = B.toString(16).length == 1 ? "0" + B.toString(16) : B.toString(16);
 	return `#${r + g + b}`;
 }
 

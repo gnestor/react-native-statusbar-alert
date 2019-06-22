@@ -9,7 +9,8 @@ import {
 	Text,
 	TouchableHighlight,
 	TouchableOpacity,
-	View
+	View,
+	Dimensions
 } from 'react-native';
 
 class StatusBarAlert extends Component {
@@ -152,8 +153,10 @@ class StatusBarAlert extends Component {
 		);
 	}
 }
-
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+const d = Dimensions.get("window");
+const isX = Platform.OS === "ios" && (d.height > 800 || d.width > 800) ? true : false;
+const iosStatusBarHeight = isX ? 30 : 20; // to prevent cut-off text on iPhone X devices 
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? iosStatusBarHeight : StatusBar.currentHeight;
 const PULSE_DURATION = 1000;
 const SLIDE_DURATION = 300;
 const ACTIVE_OPACITY = 0.6;
@@ -173,7 +176,7 @@ const styles = {
 		alignItems: 'center'
 	},
 	text: {
-		height: STATUS_BAR_HEIGHT,
+		height: Platform.OS === 'ios' ? 20 : STATUS_BAR_HEIGHT,
 		fontSize: 14,
 		fontWeight: '400',
 		lineHeight: 20,

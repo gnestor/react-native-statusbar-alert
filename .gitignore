@@ -1,3 +1,7 @@
 ReactNativeStatusBarAlertExample/node_modules
 ReactNativeStatusBarAlertExample/.expo/**
 ReactNativeStatusBarAlertExample/npm-debug.*
+
+# Dependency directory
+# https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
+node_modules
